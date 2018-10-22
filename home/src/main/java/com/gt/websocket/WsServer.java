@@ -7,6 +7,7 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import com.gt.http.HttpRequest;
 import com.gt.python.ExecutePy;
 
 public class WsServer extends WebSocketServer {
@@ -60,18 +61,16 @@ public class WsServer extends WebSocketServer {
     		if(connedUser==null) {
     			userJoin(conn,userName);//用户加入
     		}
-    		String[] result = executePy.pyGetAnswer(message);
+    		//String[] result = executePy.pyGetAnswer(message);
+    		String result = HttpRequest.getAnswer(message);
     		//String sysMess = "当前时间戳："+Calendar.getInstance().getTimeInMillis()+"";
-    		if(result[0]!=null && !result[0].equals("")) {
-    			WsPool.sendMessageToUser(conn, result[0]); //返回结果
-    			/**if(result[1]!=null && !result[1].equals("")) {
-    				WsPool.sendMessageToUser(conn, result[1]); //返回控制台错误提示
-    			}*/
+    		if(result!=null && !result.equals("")) {
+    			WsPool.sendMessageToUser(conn, result); //返回结果
     		}else {
-    			WsPool.sendMessageToUser(conn, result[1]);
+    			WsPool.sendMessageToUser(conn, "python服务异常");
     		}
         	System.out.println(WsPool.getUserByWs(conn)+">[服务器]："+message);
-        	System.out.println("[服务器]>"+WsPool.getUserByWs(conn)+"："+result[0]);
+        	System.out.println("[服务器]>"+WsPool.getUserByWs(conn)+"："+result);
         }
     }
 
