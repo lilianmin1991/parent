@@ -34,14 +34,14 @@
          -->
         <script type='text/javascript'>
 		      //创建一个连接，这里的参数是服务端的链接
-		      //var socket = new WebSocket("ws://39.105.85.33:8887");
-		      var socket = new WebSocket("ws://127.0.0.1:8887");
+		      var socket = new WebSocket("ws://39.105.85.33:8887");
+		      //var socket = new WebSocket("ws://127.0.0.1:8887");
 		      $(function() {
 		          //初始化加载listen方法
 		          listen();
 		      })
 		
-		      //向客户端发送消息，这里定义了一些参数用来设置消息的颜色字体，不过暂时没用到有兴趣的可以自己实现
+		      //向客户端发送消息
 		      function emit() {
 		
 		          //encodeScript方法用来转义<>标签，防止脚本输入，方法内容在core.js里面
