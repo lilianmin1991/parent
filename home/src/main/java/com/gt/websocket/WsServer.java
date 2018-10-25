@@ -2,11 +2,14 @@ package com.gt.websocket;
 
 import java.net.InetSocketAddress;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import com.gt.http.HttpClientRequest;
 import com.gt.http.HttpRequest;
 import com.gt.python.ExecutePy;
 
@@ -62,7 +65,14 @@ public class WsServer extends WebSocketServer {
     			userJoin(conn,userName);//用户加入
     		}
     		//String[] result = executePy.pyGetAnswer(message);
-    		String result = HttpRequest.getAnswer(message);
+    		//String result = HttpClientRequest.getAnswer(message);
+    		Map<String,String> params = new HashMap<String,String>();
+    		params.put("question", message);
+    		Map<String,String> headers = new HashMap<String,String>();
+    		headers.put("Content-Type", "application/x-www-form-urlencoded");
+    		headers.put("Charset", "UTF-8");
+    		headers.put("Connection", "close");
+    		String result = HttpClientRequest.httpPostForm("http://39.105.85.33:8866/qa", params, headers, "UTF-8");
     		//String sysMess = "当前时间戳："+Calendar.getInstance().getTimeInMillis()+"";
     		if(result!=null && !result.equals("")) {
     			WsPool.sendMessageToUser(conn, result); //返回结果

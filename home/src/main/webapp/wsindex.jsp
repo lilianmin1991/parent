@@ -19,7 +19,7 @@
                 <div class="panel-body" id="content"></div>
             </div>
             <hr/>
-            <input type="text" class="form-control" placeholder="msg" value="test" aria-describedby="sizing-addon1" id="msg">
+            <input type="text" class="form-control" placeholder="msg" value="" aria-describedby="sizing-addon1" id="msg">
             <hr/>
 
             <hr/>
