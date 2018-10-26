@@ -8,6 +8,10 @@ import java.net.URL;
 import org.json.JSONObject;
 
 import com.gt.common.utils.ParseData; 
+
+/***
+ * 原生HttpURLConnection
+ */
 public class HttpRequest { 
 	public static String getAnswer(String question) {
 		String answer = "";

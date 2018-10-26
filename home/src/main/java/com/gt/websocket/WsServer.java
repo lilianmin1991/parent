@@ -15,8 +15,6 @@ import com.gt.python.ExecutePy;
 
 public class WsServer extends WebSocketServer {
 	
-    ExecutePy executePy = ExecutePy.getProcess();
-    
 	public WsServer(int port) {
         super(new InetSocketAddress(port));
     }
@@ -64,23 +62,26 @@ public class WsServer extends WebSocketServer {
     		if(connedUser==null) {
     			userJoin(conn,userName);//用户加入
     		}
-    		//String[] result = executePy.pyGetAnswer(message);
-    		//String result = HttpClientRequest.getAnswer(message);
+    		//String[] result = executePy.pyGetAnswer(message);//直接执行py脚本方式
+    		//String result = HttpClientRequest.getAnswer(message);//原生HttpUrlConnection方式
     		Map<String,String> params = new HashMap<String,String>();
     		params.put("question", message);
     		Map<String,String> headers = new HashMap<String,String>();
     		headers.put("Content-Type", "application/x-www-form-urlencoded");
     		headers.put("Charset", "UTF-8");
     		headers.put("Connection", "close");
-    		String result = HttpClientRequest.httpPostForm("http://39.105.85.33:8866/qa", params, headers, "UTF-8");
+    		String result = HttpClientRequest.httpPostForm("http://39.105.85.33:8866/qa", 
+										    				params, 
+										    				headers, 
+										    				"UTF-8");//HttpClient方式
     		//String sysMess = "当前时间戳："+Calendar.getInstance().getTimeInMillis()+"";
     		if(result!=null && !result.equals("")) {
     			WsPool.sendMessageToUser(conn, result); //返回结果
     		}else {
     			WsPool.sendMessageToUser(conn, "python服务异常");
     		}
-        	System.out.println(WsPool.getUserByWs(conn)+">[服务器]："+message);
-        	System.out.println("[服务器]>"+WsPool.getUserByWs(conn)+"："+result);
+        	System.out.println("["+WsPool.getUserByWs(conn)+"]>>>[服务器]："+message);
+        	System.out.println("[服务器]>>>"+"["+WsPool.getUserByWs(conn)+"]："+result);
         }
     }
 
