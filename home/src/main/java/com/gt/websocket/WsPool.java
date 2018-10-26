@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.java_websocket.WebSocket;
 
@@ -84,10 +86,13 @@ public class WsPool {
      * @param user
      * @param message
      */
+    private static Lock sendLock = new ReentrantLock();
     public static void sendMessageToUser(WebSocket conn, String message) {
+    	sendLock.lock();
         if (null != conn && null != wsUserMap.get(conn)) {
             conn.send(message);
         }
+        sendLock.unlock();
     }
 
     /**
@@ -95,7 +100,9 @@ public class WsPool {
      * 
      * @param message
      */
+    private static Lock sendToAllLock = new ReentrantLock();
     public static void sendMessageToAll(String message) {
+    	sendToAllLock.lock();
         Set<WebSocket> keySet = wsUserMap.keySet();
         synchronized (keySet) {
             for (WebSocket conn : keySet) {
@@ -105,5 +112,6 @@ public class WsPool {
                 }
             }
         }
+        sendToAllLock.unlock();
     }
 }

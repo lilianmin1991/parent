@@ -12,6 +12,8 @@ import org.java_websocket.server.WebSocketServer;
 import com.gt.http.HttpClientRequest;
 import com.gt.http.HttpRequest;
 import com.gt.python.ExecutePy;
+import com.gt.thread.HttpThreadPool;
+import com.gt.thread.QuestionPool;
 
 public class WsServer extends WebSocketServer {
 	
@@ -57,13 +59,22 @@ public class WsServer extends WebSocketServer {
     	else 
     	 */
     	if(true){
-    		String userName=Calendar.getInstance().getTimeInMillis()+"";//用户名
+    		String userName=System.nanoTime()+"";//用户名
     		String connedUser = WsPool.getUserByWs(conn);
     		if(connedUser==null) {
     			userJoin(conn,userName);//用户加入
     		}
     		//String[] result = executePy.pyGetAnswer(message);//直接执行py脚本方式
     		//String result = HttpClientRequest.getAnswer(message);//原生HttpUrlConnection方式
+    		for(int i = 0;i<20000;i++) {
+    			//存储用户问题
+    			Map<WebSocket,String> wsMap= new HashMap<WebSocket,String>();
+    			Long lon = System.nanoTime();
+    			wsMap.put(conn, lon.toString());
+    			//wsMap.put(conn, message);
+    			QuestionPool.addQuestion(lon,wsMap);
+    			HttpThreadPool.getAnswer(lon,wsMap);    			
+    		}
     		Map<String,String> params = new HashMap<String,String>();
     		params.put("question", message);
     		Map<String,String> headers = new HashMap<String,String>();
