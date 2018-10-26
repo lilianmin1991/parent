@@ -19,7 +19,7 @@
                 <div class="panel-body" id="content"></div>
             </div>
             <hr/>
-            <input type="text" class="form-control" placeholder="msg" value="test" aria-describedby="sizing-addon1" id="msg">
+            <input type="text" class="form-control" placeholder="msg" value="" aria-describedby="sizing-addon1" id="msg">
             <hr/>
 
             <hr/>
@@ -41,7 +41,7 @@
 		          listen();
 		      })
 		
-		      //向客户端发送消息，这里定义了一些参数用来设置消息的颜色字体，不过暂时没用到有兴趣的可以自己实现
+		      //向客户端发送消息
 		      function emit() {
 		
 		          //encodeScript方法用来转义<>标签，防止脚本输入，方法内容在core.js里面

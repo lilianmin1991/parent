@@ -1,72 +1,58 @@
 package com.gt.http;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.OutputStream; 
+import java.net.HttpURLConnection; 
+import java.net.URL; 
+import org.json.JSONObject;
 
-public class HttpRequest {
-    public static String getAnswer(String question) {
-        //发送 POST 请求
-        String answer= sendPost("http://39.105.85.33:8088/qa", "{'question':'"+question+"'}");
-        System.out.println(answer);
-        return answer;
-    }
-    /**
-     * 向指定 URL 发送POST方法的请求
-     * @param url 发送请求的 URL
-     * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
-     * @return 所代表远程资源的响应结果
-     */
-    public static String sendPost(String url, String param) {
-        PrintWriter out = null;
-        BufferedReader in = null;
-        String result = "";
-        try {
-            URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            URLConnection conn = realUrl.openConnection();
-            // 设置通用的请求属性
-            conn.setRequestProperty("accept", "*/*");
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("user-agent",
-                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-            // 发送POST请求必须设置如下两行
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            // 获取URLConnection对象对应的输出流
-            out = new PrintWriter(conn.getOutputStream());
-            // 发送请求参数
-            out.print(param);
-            // flush输出流的缓冲
-            out.flush();
-            // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
-            String line;
-            while ((line = in.readLine()) != null) {
-                result += line;
-            }
-        } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！"+e);
-            e.printStackTrace();
-        }
-        //使用finally块来关闭输出流、输入流
-        finally{
-            try{
-                if(out!=null){
-                    out.close();
-                }
-                if(in!=null){
-                    in.close();
-                }
-            }
-            catch(IOException ex){
-                ex.printStackTrace();
-            }
-        }
-        return result;
-    }    
-}
+import com.gt.common.utils.ParseData; 
+public class HttpRequest { 
+	public static String getAnswer(String question) {
+		String answer = "";
+		try { 
+				JSONObject obj = new JSONObject(); 
+				obj.put("question", "我想买保险"); 
+				
+				URL url = new URL("http://39.105.85.33:8866/qa");// 创建url资源
+				HttpURLConnection conn = (HttpURLConnection) url.openConnection();// 建立http连接 
+				
+				byte[] data = (obj.toString()).getBytes(); //转换为字节数组
+				conn.setRequestMethod("POST"); //设置传递方式
+				conn.setRequestProperty("contentType", "application/x-www-form-urlencoded"); //设置文件类型
+				conn.setRequestProperty("Charset", "UTF-8"); //设置文件字符集
+				conn.setRequestProperty("Connection", "close"); //设置维持长连接  Keep-Alive or close
+				conn.setDoOutput(true); //设置允许输出 
+				conn.setDoInput(true); 
+				conn.setUseCaches(true); //设置不用缓存
+				conn.setRequestProperty("Content-Length", String.valueOf(data.length)); //设置文件长度
+				conn.setRequestProperty("Accept", "*/*");
+				conn.connect();// 建立连接
+				OutputStream out = conn.getOutputStream();
+				out.write(("question='老年人保险'").getBytes()); //写入请求的字符串
+				out.flush(); 
+				out.close();
+				
+				// 请求返回的状态 
+				if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+					 System.out.println("连接成功"); 
+					 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+	                 String line = "";
+	                 while(null != (line=br.readLine())){
+	                	 answer += line;
+	                 }
+	                 br.close();
+	                 System.out.println("answer:"+answer); 
+	                 //conn.disconnect();
+				 } else { 
+					System.out.println(conn.getResponseCode());  
+				 } 
+			} catch (Exception e) {
+				e.printStackTrace(); 
+			}
+			return ParseData.decodeUnicode(answer); 
+	}
+	
+	
+ }

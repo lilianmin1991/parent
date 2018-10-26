@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main=UTF-8
 encoding//src/main/java=UTF-8
+encoding//src/main/java/com/gt/http/HttpRequest.java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/webapp/js=UTF-8
 encoding//src/main/webapp/js/webSocket/index.js=UTF-8
