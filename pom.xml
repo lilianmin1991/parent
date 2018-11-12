@@ -48,6 +48,9 @@
 		<aspectjweaver-version>1.6.6</aspectjweaver-version>
 		<slf4j-log4j12-version>1.6.6</slf4j-log4j12-version>
 		<log4j-version>1.2.16</log4j-version>
+		<logback-core-version>1.2.3</logback-core-version>
+		<logback-access-version>1.2.3</logback-access-version>
+		<logback-classic-version>1.2.3</logback-classic-version>
 		<javax.servlet-jsp-version>2.0</javax.servlet-jsp-version>
 		<cglib-version>2.2.2</cglib-version>
 		<slf4j-api-version>1.6.6</slf4j-api-version>
@@ -297,6 +300,25 @@
 			    <groupId>commons-codec</groupId>
 			    <artifactId>commons-codec</artifactId>
 			    <version>1.9</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-core -->
+			<dependency>
+			    <groupId>ch.qos.logback</groupId>
+			    <artifactId>logback-core</artifactId>
+			    <version>${logback-core-version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-access -->
+			<dependency>
+			    <groupId>ch.qos.logback</groupId>
+			    <artifactId>logback-access</artifactId>
+			    <version>${logback-access-version}</version>
+			</dependency>
+			<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+			<dependency>
+			    <groupId>ch.qos.logback</groupId>
+			    <artifactId>logback-classic</artifactId>
+			    <version>${logback-classic-version}</version>
+			    <scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
