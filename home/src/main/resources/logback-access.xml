@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <configuration>  
+      <!-- always a good activate OnConsoleStatusListener -->  
+      <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />    
+       
+      <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${catalina.base}/logs/access.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+          <fileNamePattern>${catalina.base}/logs/access.%d{yyyy-MM-dd}.log.zip</fileNamePattern>  
+        </rollingPolicy>  
+       
+        <encoder>  
+          <pattern>combined</pattern>  
+        </encoder>  
+      </appender>  
+        
+        
+      <!-- always a good activate OnConsoleStatusListener -->  
+      <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />    
+      
+      <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+        <encoder>  
+          <pattern>%h %l %u %user %date "%r" %s %b</pattern>  
+        </encoder>  
+      </appender>  
+      
+      <appender-ref ref="STDOUT" />  
+      
+      <appender-ref ref="FILE" />  
+    </configuration>  
