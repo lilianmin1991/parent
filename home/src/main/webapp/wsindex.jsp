@@ -34,8 +34,8 @@
          -->
         <script type='text/javascript'>
 		      //创建一个连接，这里的参数是服务端的链接
-		      var socket = new WebSocket("ws://39.105.85.33:8887");
-		      //var socket = new WebSocket("ws://127.0.0.1:8887");
+		       var socket = new WebSocket("ws://39.105.85.33:8887");
+		       //var socket = new WebSocket("ws://127.0.0.1:8887");
 		      $(function() {
 		          //初始化加载listen方法
 		          listen();
@@ -48,9 +48,9 @@
 		          var text = encodeScript($("#msg").val());
 		          var msg = {
 		              "message" : text,
-		              "color" : "#CECECE",
-		              "bubbleColor" : "#2E2E2E",
-		              "fontSize" : "14",
+		              "color" : "#FF83FA",
+		              "bubbleColor" : "#1E90FF",
+		              "fontSize" : "160%",
 		              "fontType" : "黑体"
 		          };
 		          msg = JSON.stringify(msg);
@@ -58,7 +58,9 @@
 		          socket.send(text);
 		
 		          //将自己发送的消息内容静态加载到html上，服务端实现自己发送的消息不会推送给自己
-		          $("#content").append("<kbd style='color: #" + "CECECE" + ";float: right; font-size: " + 14 + ";'>" + text +  "</kbd><br/>");
+		          $("#content").append("<kbd style='color: #FF5512;float: right; font-size:160%;background-color: #FFFFFF;border-radius:30px;box-shadow: inset 0 -1px 0 rgba(244, 12, 12, 0.3)'>"
+		          						+ text 
+		          						+ "</kbd><br/>");
 		          //将消息文本框清空
 		          $("#msg").val("");
 		      }
@@ -66,14 +68,19 @@
 		      function listen() {
 		          //打开连接时触发
 		          socket.onopen = function() {
-		              $("#content").append("<kbd>您好!您想要了解什么？</kbd></br>");
+		              $("#content").append("<kbd style='color: #02A048;float: left; font-size:120%;background-color: #FFFFFF;border-radius:30px;box-shadow: inset 0 -1px 0 rgba(244, 12, 12, 0.3)'>"
+		              						+"您好!您想要了解什么？"
+		              						+"</kbd></br>");
 		          };
 		          //收到消息时触发
 		          socket.onmessage = function(evt) {
 		              //var data = JSON.parse(evt.data);
 		          	var message = evt.data;
 		              //$("#content").append("<kbd style='color: #" + data.color + ";font-size: " + data.fontSize + ";margin-top: 10px;'>" + data.userName + " Say: " + data.message + "</kbd></br>");
-		              $("#content").append("<kbd style='color: #CECECE;font-size:14;margin-top: 10px;'> 小智: " + message + "</kbd></br>");
+		              $("#content").append("<kbd style='color: #02A048;font-size:150%;margin-top: 10px;;background-color: #FFFFFF;border-radius:30px;box-shadow: inset 0 -1px 0 rgba(244, 12, 12, 0.3)'> "
+		              						+"小智: " 
+		              						+ message 
+		              						+ "</kbd></br>");
 		          };
 		          //关闭连接时触发
 		          socket.onclose = function(evt) {

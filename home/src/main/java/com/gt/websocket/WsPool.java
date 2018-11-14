@@ -17,7 +17,7 @@ public class WsPool {
 	private static final Map<WebSocket, String> wsUserMap = new HashMap<WebSocket, String>();
 	//logback日志
 	private static Lock loggerLock = new ReentrantLock();
-	final static Logger logger = LoggerFactory.getLogger(WsPool.class);
+	final static Logger logger = LoggerFactory.getLogger("qa_history");
 	public static void logger(String mess,String type) {
 		loggerLock.lock();
 		if(type.equals("info")) {
@@ -103,7 +103,7 @@ public class WsPool {
     	sendLock.lock();
         if (null != conn && null != wsUserMap.get(conn)) {
             conn.send(message);
-            logger("用户["+WsPool.getUserByWs(conn)+"] received: ["+message+"]","info");
+            logger("用户["+WsPool.getUserByWs(conn)+"] received: "+message,"info");
         }
         sendLock.unlock();
     }

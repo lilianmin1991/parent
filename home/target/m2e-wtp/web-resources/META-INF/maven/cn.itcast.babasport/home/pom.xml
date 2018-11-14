@@ -43,6 +43,16 @@
 			<groupId>cn.itcast.babasport</groupId>
 			<artifactId>babasport-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+               		<exclusion>
+                   			<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-log4j12</artifactId>
+               		</exclusion>
+               		<exclusion>
+                   			<groupId>org.slf4j</groupId>
+							<artifactId>slf4j-api</artifactId>
+               		</exclusion>
+            </exclusions>
 		</dependency>
 		<!-- 
 		 -->
@@ -51,21 +61,5 @@
 			<artifactId>tomcat-jsp-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-	    <dependency>
-	    	<groupId>ch.qos.logback</groupId>
-	    	<artifactId>logback-core</artifactId>
-	    </dependency>
-	    <dependency>
-	    	<groupId>ch.qos.logback</groupId>
-	    	<artifactId>logback-access</artifactId>
-	    </dependency>
-	    <dependency>
-	    	<groupId>ch.qos.logback</groupId>
-	    	<artifactId>logback-classic</artifactId>
-	    </dependency>
-	    <dependency>
-	    	<groupId>org.java-websocket</groupId>
-	    	<artifactId>Java-WebSocket</artifactId>
-	    </dependency>
 	</dependencies>
 </project>

@@ -78,7 +78,7 @@ public class WsServer extends WebSocketServer {
     			QuestionPool.addQuestion(lon,wsMap);
     			HttpThreadPool.getAnswer(lon,wsMap);    			
     		}*/
-    		WsPool.logger("用户["+WsPool.getUserByWs(conn)+"] say: ["+message+"]","info");//问答日志
+    		WsPool.logger("用户["+WsPool.getUserByWs(conn)+"] say: "+message,"info");//问答日志
     		Map<String,String> params = new HashMap<String,String>();
     		params.put("question", message);
     		Map<String,String> headers = new HashMap<String,String>();
