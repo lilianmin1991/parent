@@ -10,9 +10,21 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.java_websocket.WebSocket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WsPool {
 	private static final Map<WebSocket, String> wsUserMap = new HashMap<WebSocket, String>();
+	//logback日志
+	private static Lock loggerLock = new ReentrantLock();
+	final static Logger logger = LoggerFactory.getLogger(WsPool.class);
+	public static void logger(String mess,String type) {
+		loggerLock.lock();
+		if(type.equals("info")) {
+			logger.info(mess);
+		}
+		loggerLock.unlock();
+	}
 
     /**
      * 通过websocket连接获取其对应的用户
@@ -91,6 +103,7 @@ public class WsPool {
     	sendLock.lock();
         if (null != conn && null != wsUserMap.get(conn)) {
             conn.send(message);
+            logger("用户["+WsPool.getUserByWs(conn)+"] received: ["+message+"]","info");
         }
         sendLock.unlock();
     }

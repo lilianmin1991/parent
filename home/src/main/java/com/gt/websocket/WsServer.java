@@ -8,12 +8,15 @@ import java.util.Map;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.gt.http.HttpClientRequest;
 import com.gt.http.HttpRequest;
 import com.gt.python.ExecutePy;
 import com.gt.thread.HttpThreadPool;
 import com.gt.thread.QuestionPool;
+
 
 public class WsServer extends WebSocketServer {
 	
@@ -66,7 +69,7 @@ public class WsServer extends WebSocketServer {
     		}
     		//String[] result = executePy.pyGetAnswer(message);//直接执行py脚本方式
     		//String result = HttpClientRequest.getAnswer(message);//原生HttpUrlConnection方式
-    		for(int i = 0;i<20000;i++) {
+    		/*for(int i = 0;i<20000;i++) {
     			//存储用户问题
     			Map<WebSocket,String> wsMap= new HashMap<WebSocket,String>();
     			Long lon = System.nanoTime();
@@ -74,7 +77,8 @@ public class WsServer extends WebSocketServer {
     			//wsMap.put(conn, message);
     			QuestionPool.addQuestion(lon,wsMap);
     			HttpThreadPool.getAnswer(lon,wsMap);    			
-    		}
+    		}*/
+    		WsPool.logger("用户["+WsPool.getUserByWs(conn)+"] say: ["+message+"]","info");//问答日志
     		Map<String,String> params = new HashMap<String,String>();
     		params.put("question", message);
     		Map<String,String> headers = new HashMap<String,String>();

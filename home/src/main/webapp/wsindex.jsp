@@ -34,8 +34,8 @@
          -->
         <script type='text/javascript'>
 		      //创建一个连接，这里的参数是服务端的链接
-		      //var socket = new WebSocket("ws://39.105.85.33:8887");
-		      var socket = new WebSocket("ws://127.0.0.1:8887");
+		      var socket = new WebSocket("ws://39.105.85.33:8887");
+		      //var socket = new WebSocket("ws://127.0.0.1:8887");
 		      $(function() {
 		          //初始化加载listen方法
 		          listen();
