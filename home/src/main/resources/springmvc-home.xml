@@ -40,7 +40,7 @@
 		<!-- 多个Converters -->
 		<property name="converters">
 			<list>
-				<bean class=" cn.itcast.common.convertion.CustomTrimConverter"/>
+				<bean class="com.gt.common.utils.CustomTrimConverter"/>
 <!-- 				<bean class="转换日期"></bean> -->
 <!-- 				<bean class="转换日期"></bean> -->
 <!-- 				<bean class="转换日期"></bean> -->
@@ -57,8 +57,9 @@
 		<!-- 上传图片  1 M  B-->
 		<property name="maxUploadSize" value="1048576"/>
 	</bean>
-	
-	<!-- 引入服务器消费方配置文件 -->
+
+	<!-- 引入服务器消费方配置文件 
 	<import resource="dubbo-consumer-home.xml"/>
-		
+	-->
+
 </beans>

@@ -85,10 +85,8 @@ public class WsServer extends WebSocketServer {
     		headers.put("Content-Type", "application/x-www-form-urlencoded");
     		headers.put("Charset", "UTF-8");
     		headers.put("Connection", "close");
-    		String result = HttpClientRequest.httpPostForm("http://39.105.85.33:8866/qa", 
-										    				params, 
-										    				headers, 
-										    				"UTF-8");//HttpClient方式
+    		//String result = HttpClientRequest.httpPostForm("http://106.12.39.232:5000/qa", params, headers, "UTF-8");//HttpClient方式
+    		String result = HttpClientRequest.sendGet("http://106.12.39.232:5000/qa?question="+message);//HttpClient方式
     		//String sysMess = "当前时间戳："+Calendar.getInstance().getTimeInMillis()+"";
     		if(result!=null && !result.equals("")) {
     			WsPool.sendMessageToUser(conn, result); //返回结果

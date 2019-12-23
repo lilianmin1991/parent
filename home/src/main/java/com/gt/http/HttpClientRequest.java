@@ -12,13 +12,16 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
 import com.gt.common.utils.ParseData;
 
 public class HttpClientRequest {
@@ -117,6 +120,39 @@ public class HttpClientRequest {
             e.printStackTrace();
         }
         return ParseData.decodeUnicode(answer);
+    }
+    /**
+     * 发送 http get 请求。
+     */
+
+    private static final CloseableHttpClient httpclient = HttpClients.createDefault();
+    public static String sendGet(String url) {
+
+        HttpGet httpget = new HttpGet(url);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpclient.execute(httpget);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        String result = null;
+        try {
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                result = EntityUtils.toString(entity);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        JSONObject  resultJson = new JSONObject (result);
+        result = resultJson.getString("solution");
+        return result;
     }
 }
 

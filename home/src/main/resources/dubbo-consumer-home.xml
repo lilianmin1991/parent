@@ -21,10 +21,12 @@
 		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
 	<!-- 配置dubbo的服务消费方 -->
-	<!-- 名称 -->
+	<!-- 名称 
 	<dubbo:application name="home"/>
-	<!-- 注册中心 -->
+	-->
+	<!-- 注册中心
 	<dubbo:registry address="N/A"/>
+	 -->
 	<!-- 引用服务提供方 提供接口  -->
 <!-- 	<dubbo:reference interface="cn.itcast.core.service.TestTbService" id="testTbService"
 		url="dubbo://127.0.0.1:20880"	timeout="600000"
@@ -51,8 +53,9 @@
 		url="dubbo://127.0.0.1:20880"
 	/>
 	/> -->
-	<!-- 全局设置超时时间 -->  <!-- 不检查服务提供方   问题 ：开发阶段 启动顺序不报错  调用时 必须启动服务提供方 -->
+	<!-- 全局设置超时时间 -->  <!-- 不检查服务提供方   问题 ：开发阶段 启动顺序不报错  调用时 必须启动服务提供方 
 	<dubbo:consumer timeout="600000" check="false"/>
+	-->
 	
 		
 </beans>

@@ -18,12 +18,10 @@
         <filter-name>startFilter</filter-name>
         <filter-class>com.gt.filter.StartFilter</filter-class>
     </filter>
-<!-- 
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
- -->	
 	<!-- 配置Springmvc 前端控制器 -->
 	<servlet>
 		<servlet-name>home</servlet-name>
@@ -35,13 +33,11 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<!-- / .js.css      /* .jsp拦截    后台*.do    前台*.shtml  单点登陆*.aspx-->
-	<!-- 
 	<servlet-mapping>
 		<servlet-name>home</servlet-name>
 		<url-pattern>*.shtml</url-pattern>
 	</servlet-mapping>
-	 -->
-	<context-param>  
+	<context-param>
       <param-name>logbackConfigLocation</param-name> 
       	<!-- 这里可以配置自定义的路径 --> 
       <param-value>classpath:logback.xml</param-value>  
